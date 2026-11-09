@@ -34,7 +34,7 @@ public class Ventilator {
 			System.err.println("Invalid arguments!");
 		}
 		else {
-			TODO connect to server...
+			//TODO connect to server...
 			
 			// TODO register with the server
 			Areas area=Areas.valueOf(args[2]);
