@@ -17,7 +17,7 @@ public double getValue() { return value;}
 
 //vai buscar o nome exato da classe que está a ser executada
 public String toString() {
-    return getClass().getSimpleName() + "{" 
+    return getClass().getSimpleName() + "[" 
     + getArea() + ", " + value + "]";
 
 }
