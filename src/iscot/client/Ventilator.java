@@ -1,66 +1,72 @@
 package iscot.client;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
-
-import javax.swing.BorderFactory;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
-import iscot.client.gui.LightIcon;
 import iscot.client.gui.VentilatorIcon;
 import iscot.enums.Areas;
-import iscot.enums.Type;
+import iscot.events.AreaVentilationOrderEvent;
+import iscot.events.Event;
 
 public class Ventilator {
 
-	/**
-	 * 
-	 * @param server address and port
-	 * @param roomName: string
-	 * @throws IOException 
-	 * @throws UnknownHostException 
-	 * @throws NumberFormatException 
-	 * @throws InterruptedException 
-	 * @throws ClassNotFoundException 
-	 */
-	public static void main(String[] args) throws NumberFormatException, UnknownHostException, IOException, InterruptedException, ClassNotFoundException {
-		if(args.length!=3) {
-			System.err.println("Invalid arguments!");
-		}
-		else {
-			//TODO connect to server...
-			
-			// TODO register with the server
-			Areas area=Areas.valueOf(args[2]);
-			
-			JFrame janela = new JFrame("Ventilador em "+area);
-			janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    private final VentilatorIcon ventilador = new VentilatorIcon();
+    private final JTextArea historico = new JTextArea(8, 25);
 
-		
-			
-			// Criar os componentes gráficos
-			JPanel painel=new JPanel();
-			painel.setLayout(new BorderLayout());
-			VentilatorIcon ventilator = new VentilatorIcon();
-			painel.add(ventilator,BorderLayout.CENTER);
-			janela.setContentPane(painel);
-			janela.setLocation(600, 400);
-			janela.setMinimumSize(janela.getSize());
-			janela.pack();
-			janela.setVisible(true);
-			
-			Thread.sleep(5000);
-			ventilator.setAtivo(true);
+    public Ventilator(Areas area) {
+        JFrame janela = new JFrame("Ventilador em " + area);
+        janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-			// TODO: receive and handle messages from server
-			
-			// TODO: for first phase: create an appropriate event hardcoded locally and change the GUI accordingly
-		}
-	}
+        historico.setEditable(false);
+
+        JPanel painel = new JPanel(new BorderLayout());
+        painel.add(ventilador, BorderLayout.CENTER);
+        painel.add(new JScrollPane(historico), BorderLayout.SOUTH);
+
+        janela.setContentPane(painel);
+        janela.setLocation(600, 400);
+        janela.pack();
+        janela.setVisible(true);
+    }
+
+    public void handle(Event e) {
+        if (e instanceof AreaVentilationOrderEvent) {
+            AreaVentilationOrderEvent ordem = (AreaVentilationOrderEvent) e;
+            ventilador.setLigado(ordem.isOn());
+            if (ordem.isOn()) {
+                registar("Ventilador ligado");
+            } else {
+                registar("Ventilador desligado");
+            }
+        }
+    }
+
+    private void registar(String acao) {
+        String hora = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        SwingUtilities.invokeLater(() -> historico.append(acao + " - " + hora + "\n"));
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        if (args.length != 3) {
+            System.err.println("Invalid arguments!");
+        } else {
+            // TODO connect to the server
+            // TODO register with the server
+            Areas area = Areas.valueOf(args[2]);
+
+            Ventilator atuador = new Ventilator(area);
+
+            Thread.sleep(2000);
+            atuador.handle(new AreaVentilationOrderEvent(area, true));
+
+            Thread.sleep(3000);
+            atuador.handle(new AreaVentilationOrderEvent(area, false));
+        }
+    }
 }
