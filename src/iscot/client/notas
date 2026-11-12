@@ -1,0 +1,6 @@
+
+Para correr 
+
+javac -d bin src/iscot/enums/*.java src/iscot/events/*.java src/iscot/client/gui/*.java src/iscot/client/*.java
+
+java iscot.client.LightActuator localhost 8080 Garden

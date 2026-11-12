@@ -54,7 +54,7 @@ public class HumiditySensor {
 					
 			painel.add(sensorControl,BorderLayout.CENTER);
 			janela.setContentPane(painel);
-			janela.setLocation(600, 400);
+			janela.setLocationByPlatform(true);
 			janela.setMinimumSize(janela.getSize());
 			janela.pack();
 			janela.setVisible(true);

@@ -4,7 +4,7 @@ import iscot.enums.Areas;
 
 public class AreaLightingOrderEvent extends HighLevelOrderEvent {
 
-public boolean on; //true se for ligar a luz, false se for desligar
+private final boolean on; //true se for ligar a luz, false se for desligar
 
 public AreaLightingOrderEvent(Areas area, boolean on){
 super(area);

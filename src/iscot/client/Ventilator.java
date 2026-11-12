@@ -30,7 +30,7 @@ public class Ventilator {
         painel.add(new JScrollPane(historico), BorderLayout.SOUTH);
 
         janela.setContentPane(painel);
-        janela.setLocation(600, 400);
+        janela.setLocationByPlatform(true);
         janela.pack();
         janela.setVisible(true);
     }

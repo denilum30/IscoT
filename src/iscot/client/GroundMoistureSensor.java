@@ -35,7 +35,7 @@ public class GroundMoistureSensor {
 
             painel.add(sensorControl, BorderLayout.CENTER);
             janela.setContentPane(painel);
-            janela.setLocation(600, 400);
+            janela.setLocationByPlatform(true);
             janela.pack();
             janela.setVisible(true);
         }

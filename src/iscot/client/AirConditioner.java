@@ -32,7 +32,7 @@ public class AirConditioner {
         painel.add(new JScrollPane(historico), BorderLayout.SOUTH);
 
         janela.setContentPane(painel);
-        janela.setLocation(600, 400);
+        janela.setLocationByPlatform(true);
         janela.pack();
         janela.setVisible(true);
     }
@@ -83,7 +83,7 @@ public class AirConditioner {
             atuador.handle(new AreaTemperatureOrderEvent(area, AirConditioningMode.Frio, 22));
 
             Thread.sleep(3000);
-            atuador.handle(new AreaVentilationOrderEvent(area, true));   // deve ser ignorada
+            atuador.handle(new AreaVentilationOrderEvent(area, true));   // deve ser ignorada porque o ar condicionado está em Frio
 
             Thread.sleep(3000);
             atuador.handle(new AreaTemperatureOrderEvent(area, AirConditioningMode.Desligado, 0));
@@ -91,7 +91,7 @@ public class AirConditioner {
             Thread.sleep(3000);
             atuador.handle(new AreaVentilationOrderEvent(area, true));   // agora já liga
 
-            Thread.sleep(3000);
+            Thread.sleep(5000);
             atuador.handle(new AreaVentilationOrderEvent(area, false));
         }
     }

@@ -1,0 +1,99 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "AirConditioner",
+      "request": "launch",
+      "mainClass": "iscot.client.AirConditioner",
+      "args": [
+        "localhost",
+        "8080",
+        "LivingRoom"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "LightActuator",
+      "request": "launch",
+      "mainClass": "iscot.client.LightActuator",
+      "args": [
+        "localhost",
+        "8080",
+        "LivingRoom"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "Ventilator",
+      "request": "launch",
+      "mainClass": "iscot.client.Ventilator",
+      "args": [
+        "localhost",
+        "8080",
+        "LivingRoom"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "Irrigation",
+      "request": "launch",
+      "mainClass": "iscot.client.Irrigation",
+      "args": [
+        "localhost",
+        "8080",
+        "Garden"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "TemperatureSensor",
+      "request": "launch",
+      "mainClass": "iscot.client.TemperatureSensor",
+      "args": [
+        "localhost",
+        "8080",
+        "LivingRoom"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "HumiditySensor",
+      "request": "launch",
+      "mainClass": "iscot.client.HumiditySensor",
+      "args": [
+        "localhost",
+        "8080",
+        "LivingRoom"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "LightSensor",
+      "request": "launch",
+      "mainClass": "iscot.client.LightSensor",
+      "args": [
+        "localhost",
+        "8080",
+        "LivingRoom"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "GroundMoistureSensor",
+      "request": "launch",
+      "mainClass": "iscot.client.GroundMoistureSensor",
+      "args": [
+        "localhost",
+        "8080",
+        "Garden"
+      ]
+    },
+    {
+      "type": "java",
+      "name": "Teste (eventos)",
+      "request": "launch",
+      "mainClass": "iscot.events.Teste"
+    }
+  ]
+}
